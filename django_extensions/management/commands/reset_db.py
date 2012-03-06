@@ -156,7 +156,7 @@ Type 'yes' to continue, or 'no' to cancel: """ % (settings.DATABASE_NAME,))
                 logging.info("Error: %s" % str(e))
 
             # Encoding should be SQL_ASCII (7-bit postgres default) or prefered UTF8 (8-bit)
-            create_query = """CREATE DATABASE %s WITH OWNER = %s ENCODING = 'UTF8' """ % (settings.DATABASE_NAME, settings.DATABASE_USER)
+            create_query = """CREATE DATABASE %s WITH OWNER = %s ENCODING = 'UTF-8' LC_CTYPE = 'fr_FR.utf8' LC_COLLATE = 'fr_FR.utf8' TEMPLATE template0 """ % (settings.DATABASE_NAME, settings.DATABASE_USER)
 
             if postgis.match(engine):
                 create_query += 'TEMPLATE = template_postgis '
