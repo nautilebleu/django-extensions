@@ -159,7 +159,9 @@ Type 'yes' to continue, or 'no' to cancel: """ % (settings.DATABASE_NAME,))
             # Encoding should be SQL_ASCII (7-bit postgres default) or prefered UTF8 (8-bit)
             locale_list = subprocess.check_output(["locale"])
             locale_lang = locale_list.split('\n')[0]
-            locale_code = locale_lang[locale_lang.find('="') + 2:-1]
+            locale_code = locale_lang[locale_lang.find('=') + 1:]
+            if locale_code.find('"') == 0:
+                locale_code = locale_code[1:-1]
             create_query = """CREATE DATABASE %s WITH OWNER = %s ENCODING = 'UTF-8' LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0 """\
                  % (settings.DATABASE_NAME,
                     settings.DATABASE_USER,
